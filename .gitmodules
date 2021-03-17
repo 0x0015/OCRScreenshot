@@ -1,0 +1,3 @@
+[submodule "vendor/de/skycoder42/qhotkey"]
+	path = vendor/de/skycoder42/qhotkey
+	url = https://github.com/Skycoder42/QHotkey.git
