@@ -12,6 +12,7 @@
  #include <tesseract/baseapi.h>
  #include <tesseract/strngs.h>
  #include <leptonica/allheaders.h>
+ #include <iostream>
  #include "options.h"
  
  class QCheckBox;
@@ -53,7 +54,7 @@
      void createButtonsLayout();
      QPushButton *createButton(const QString &text, QWidget *receiver,
                                const char *member);
-
+     std::string OCRImage();
 
      void paintEvent(QPaintEvent*);
 

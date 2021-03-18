@@ -9,14 +9,18 @@ Options::Options()
     QLabel* languageLabel = new QLabel("OCR language:");
     tempFilename = new QLineEdit("__ScreenshotOCRTemp.png");
     QLabel* tempFilenameLabel = new QLabel("Temporary Filename:");
+    removeLinebreaks = new QCheckBox("Remove linebreaks");
+    rLBcheckForHyphens = new QCheckBox("When removing linebreaks, check for hyphens?");
 
     mainLayout = new QVBoxLayout(this);
 
    
     mainLayout->addWidget(languageLabel);
     mainLayout->addWidget(language);
-     mainLayout->addWidget(tempFilenameLabel);
+    mainLayout->addWidget(tempFilenameLabel);
     mainLayout->addWidget(tempFilename);
+    mainLayout->addWidget(removeLinebreaks);
+    mainLayout->addWidget(rLBcheckForHyphens);
    
 
     setWindowTitle(tr("Screenshot"));

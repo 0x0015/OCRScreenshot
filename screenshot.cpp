@@ -82,8 +82,9 @@ void deletePreviousScreenshot(){
 		}
 }
 
-std::string OCRImage(){
-    const char* lang = "eng";
+std::string Screenshot::OCRImage(){
+    //std::string tesseractEnv = std::string(getenv("TESSDATA_PREFIX"));
+    const char* lang = options->language->text().toStdString().c_str();
     const char* filename = "__ScreenshotOCRTemp.png";
 
     tesseract::TessBaseAPI* tess = new tesseract::TessBaseAPI(); // debug stopped here on this line
@@ -204,6 +205,33 @@ void Screenshot::exit(){
 	QApplication::quit();
 }
 
+std::string cutLineBreaks(std::string text, bool should, bool checkForHiphens){
+	if(should){
+		std::string output = "";
+		for(int i=0;i<text.length();i++){
+			if(text.substr(i, 1) == "\n"){
+				if(i>=1 && checkForHiphens){
+					if(text.substr(i-1, 1) != "-"){
+						output = output + " ";
+						i++;
+					}
+				}else if(i+1<text.length() && checkForHiphens){
+					if(text.substr(i+1, 1) != "-"){
+						output = output + " ";
+						i++;
+					}
+				}else{
+					output = output + " ";
+				}
+			}else{
+				output = output + text.substr(i, 1);
+			}
+		}
+		return(output);
+	}
+	return(text);
+}
+
 void Screenshot::mouseReleaseEvent(QMouseEvent* event){
 	this->mousex = event->x();
 	this->mousey = event->y();
@@ -212,7 +240,9 @@ void Screenshot::mouseReleaseEvent(QMouseEvent* event){
 	//update();
 	quit();
 	saveScreenshot();
-	copyToClipboard(OCRImage());
+	bool removeLB = options->removeLinebreaks->checkState() == Qt::Checked;
+	bool removeLBH = options->rLBcheckForHyphens->checkState() == Qt::Checked;
+	copyToClipboard(cutLineBreaks(OCRImage(), removeLB, removeLBH));
 	deletePreviousScreenshot();
 	//QTimer::singleShot(1, this, SLOT(quit()));
 

@@ -25,6 +25,10 @@
  public:
 	Options();
 	void on_show_hide();
+     QLineEdit* language;
+     QLineEdit* tempFilename;
+     QCheckBox* removeLinebreaks;
+     QCheckBox* rLBcheckForHyphens;
  protected:
 	
  private slots:
@@ -37,8 +41,7 @@
      //QPushButton *saveScreenshotButton;
      //QPushButton *quitScreenshotButton;
      //QPainter* SelectionScreen;
-     QLineEdit* language;
-     QLineEdit* tempFilename;
+
 
      QVBoxLayout *mainLayout;
      //QHBoxLayout *buttonsLayout;
